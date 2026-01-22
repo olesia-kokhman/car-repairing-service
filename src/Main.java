@@ -1,33 +1,90 @@
+import documents.Invoice;
+import service.*;
+import vehicle.Car;
+import vehicle.FuelType;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Customer customer = new Customer("Ivan Petrenko", "+380501112233");
-        Car car = new Car("AA1234BB", "Toyota Corolla", 2012, 180000);
+        Scanner scanner = new Scanner(System.in);
 
-        ServiceRequest request = new ServiceRequest(101, customer, car, "Brake noise while driving");
+        System.out.println("vehicle.Car repairing service welcomes you!");
+
+        System.out.print("Enter customer full name: ");
+        String customerName = scanner.nextLine();
+
+        System.out.print("Enter customer phone: ");
+        String customerPhone = scanner.nextLine();
+
+        Customer customer = new Customer(customerName, customerPhone);
+
+        System.out.print("Enter car plate number: ");
+        String plateNumber = scanner.nextLine();
+
+        System.out.print("Enter car model: ");
+        String model = scanner.nextLine();
+
+        System.out.print("Enter car year: ");
+        int year = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Enter car mileage (km): ");
+        int mileage = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Enter fuel type: PETROL, DIESEL, ELECTRIC, HYBRID : ");
+        FuelType fuelType = FuelType.valueOf(scanner.nextLine().trim().toUpperCase());
+
+        Car car = new Car(plateNumber, model, year, mileage, fuelType);
+
+        System.out.print("Describe the problem: ");
+        String problemDescription = scanner.nextLine();
+
+        int requestId = (int) (System.currentTimeMillis() % 100000);
+
+        ServiceRequest request = new ServiceRequest(requestId, customer, car, problemDescription);
+
+        System.out.println("\nYour initial request:");
+        System.out.println(request);
 
         ServiceAdvisor advisor = new ServiceAdvisor("Olena");
         Mechanic mechanic = new Mechanic("Mykola", 450.0);
 
         CarRepairService service = new CarRepairService(advisor, mechanic);
-        System.out.println(request);
-
         Invoice invoice = service.process(request);
+
+        System.out.println("\nYour request after processing: ");
         System.out.println(request);
 
+        System.out.println("\nYour invoice: ");
         System.out.println(invoice.print());
 
-        Payment payment = new Payment("CARD");
-        payment.pay(invoice.getTotal(), invoice.getTotal());
 
-        System.out.println(payment);
+        System.out.print("\nChoose payment method : CARD, CASH: ");
+        String paymentMethod = scanner.nextLine().trim().toUpperCase();
 
-        if (payment.isSuccessful()) {
-            advisor.notifyCustomer(customer, "Payment received. Thank you!");
+        Payment payment = new Payment(paymentMethod);
+
+        System.out.print("Enter payment amount: ");
+        double amountPaid = Double.parseDouble(scanner.nextLine());
+        double invoiceTotal = invoice.getTotal();
+
+        payment.pay(invoiceTotal, amountPaid);
+
+        if (payment.isSuccessful() && payment.getAmountPaid() >= invoiceTotal) {
+            advisor.notifyCustomer(
+                    customer,
+                    "service.Payment received in full. Thank you and have a nice day!"
+            );
             advisor.close(request);
+        } else if (payment.isSuccessful()) {
+            advisor.notifyCustomer(
+                    customer,
+                    "Partial payment received. Remaining amount: "
+                            + (invoiceTotal - payment.getAmountPaid())
+            );
         } else {
-            advisor.notifyCustomer(customer, "Payment failed. Please retry.");
+            advisor.notifyCustomer(customer, "service.Payment failed. Please retry.");
         }
 
-        System.out.println(request);
     }
 }

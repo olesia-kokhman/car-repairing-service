@@ -1,3 +1,5 @@
+package service;
+
 public enum ServiceRequestStatus {
     NEW,
     IN_PROGRESS,

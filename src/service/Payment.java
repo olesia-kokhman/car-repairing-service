@@ -1,3 +1,5 @@
+package service;
+
 public class Payment {
     private String method;
     private double amountPaid;
@@ -38,7 +40,7 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{" +
+        return "service.Payment{" +
                 "method='" + method + '\'' +
                 ", amountPaid=" + amountPaid +
                 ", successful=" + successful +

@@ -1,3 +1,9 @@
+package service;
+
+import documents.DiagnosisReport;
+import vehicle.Car;
+import vehicle.parts.VehiclePart;
+
 public class ServiceRequest {
     private int id;
     private Customer customer;
@@ -6,7 +12,7 @@ public class ServiceRequest {
     private ServiceRequestStatus status;
 
     private DiagnosisReport diagnosis;
-    private SparePart usedPart;
+    private VehiclePart usedPart;
 
     public ServiceRequest(int id, Customer customer, Car car, String problemDescription) {
         this.id = id;
@@ -66,17 +72,17 @@ public class ServiceRequest {
         this.diagnosis = diagnosis;
     }
 
-    public SparePart getUsedPart() {
+    public VehiclePart getUsedPart() {
         return usedPart;
     }
 
-    public void setUsedPart(SparePart usedPart) {
+    public void setUsedPart(VehiclePart usedPart) {
         this.usedPart = usedPart;
     }
 
     @Override
     public String toString() {
-        return "ServiceRequest{" +
+        return "service.ServiceRequest{" +
                 "id=" + id +
                 ", customer=" + customer +
                 ", car=" + car +

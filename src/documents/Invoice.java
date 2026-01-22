@@ -1,15 +1,30 @@
-public class Invoice {
-    private int invoiceNumber;
-    private int requestId;
+package documents;
 
+import java.time.LocalDateTime;
+
+public class Invoice extends Document {
     private double laborHours;
     private double hourlyRate;
     private double partsCost;
     private double total;
 
     public Invoice(int invoiceNumber, int requestId, double laborHours, double hourlyRate, double partsCost) {
-        this.invoiceNumber = invoiceNumber;
-        this.requestId = requestId;
+        super(invoiceNumber, requestId, null, LocalDateTime.now());
+        this.laborHours = laborHours;
+        this.hourlyRate = hourlyRate;
+        this.partsCost = partsCost;
+        recalc();
+    }
+
+    public Invoice(int invoiceNumber,
+                   int requestId,
+                   String createdByEmployeeId,
+                   LocalDateTime createdAt,
+                   double laborHours,
+                   double hourlyRate,
+                   double partsCost) {
+
+        super(invoiceNumber, requestId, createdByEmployeeId, createdAt);
         this.laborHours = laborHours;
         this.hourlyRate = hourlyRate;
         this.partsCost = partsCost;
@@ -21,19 +36,19 @@ public class Invoice {
     }
 
     public int getInvoiceNumber() {
-        return invoiceNumber;
+        return getDocumentNumber();
     }
 
     public void setInvoiceNumber(int invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
+        setDocumentNumber(invoiceNumber);
     }
 
     public int getRequestId() {
-        return requestId;
+        return super.getRequestId();
     }
 
     public void setRequestId(int requestId) {
-        this.requestId = requestId;
+        super.setRequestId(requestId);
     }
 
     public double getLaborHours() {
@@ -67,23 +82,28 @@ public class Invoice {
         return total;
     }
 
+    @Override
     public String print() {
         double laborCost = laborHours * hourlyRate;
-        return "Invoice#" + invoiceNumber + " for request#" + requestId
+        return "documents.Invoice#" + getDocumentNumber() + " for request#" + getRequestId()
                 + "\n  laborCost=" + laborCost
                 + "\n  partsCost=" + partsCost
-                + "\n  TOTAL=" + total;
+                + "\n  TOTAL=" + total
+                + "\n  createdBy=" + getCreatedByEmployeeId()
+                + "\n  createdAt=" + getCreatedAt();
     }
 
     @Override
     public String toString() {
-        return "Invoice{" +
-                "invoiceNumber=" + invoiceNumber +
-                ", requestId=" + requestId +
+        return "documents.Invoice{" +
+                "invoiceNumber=" + getDocumentNumber() +
+                ", requestId=" + getRequestId() +
                 ", laborHours=" + laborHours +
                 ", hourlyRate=" + hourlyRate +
                 ", partsCost=" + partsCost +
                 ", total=" + total +
+                ", createdByEmployeeId='" + getCreatedByEmployeeId() + '\'' +
+                ", createdAt=" + getCreatedAt() +
                 '}';
     }
 }

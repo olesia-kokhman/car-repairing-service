@@ -1,3 +1,5 @@
+package service;
+
 public class Customer {
 
     private String fullName;
@@ -26,7 +28,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "service.Customer{" +
                 "fullName='" + fullName + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
