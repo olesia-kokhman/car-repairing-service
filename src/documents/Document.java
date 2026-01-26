@@ -2,7 +2,7 @@ package documents;
 
 import java.time.LocalDateTime;
 
-public abstract class Document {
+public abstract class Document implements Printable {
     private int documentNumber;
     private int requestId;
 

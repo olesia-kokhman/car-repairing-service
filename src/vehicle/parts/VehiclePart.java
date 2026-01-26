@@ -1,8 +1,12 @@
 package vehicle.parts;
 
+import java.util.Objects;
+
 public abstract class VehiclePart {
     private String partName;
     private double price;
+
+    public static final int DEFAULT_WARRANTY_MONTHS = 6;
 
     protected VehiclePart(String partName, double price) {
         this.partName = partName;
@@ -24,5 +28,17 @@ public abstract class VehiclePart {
                 ", price=" + price +
                 ", category='" + category() + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VehiclePart that)) return false;
+        return Double.compare(that.price, price) == 0 && Objects.equals(partName, that.partName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(partName, price);
     }
 }

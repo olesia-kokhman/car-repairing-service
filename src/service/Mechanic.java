@@ -7,6 +7,8 @@ public class Mechanic extends Employee {
     private String specialization;
     private String certificationLevel;
 
+    public static final double DEFAULT_HOURLY_RATE = 450.0;
+
     public Mechanic(String name, double hourlyRate) {
         super(
                 "M-0001",

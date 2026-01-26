@@ -21,4 +21,9 @@ public class StandardWarrantyPolicy extends WarrantyPolicy {
                 ", coversParts=" + coversParts +
                 '}';
     }
+
+    @Override
+    public String toPrint() {
+        return null;
+    }
 }

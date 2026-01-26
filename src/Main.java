@@ -1,15 +1,21 @@
+import documents.DiagnosisReport;
 import documents.Invoice;
+import documents.Printable;
+import documents.StandardWarrantyPolicy;
 import service.*;
 import vehicle.Car;
 import vehicle.FuelType;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        // add final to fields in classes
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("vehicle.Car repairing service welcomes you!");
+        System.out.println("Car repairing service welcomes you!");
 
         System.out.print("Enter customer full name: ");
         String customerName = scanner.nextLine();
@@ -55,9 +61,17 @@ public class Main {
         System.out.println("\nYour request after processing: ");
         System.out.println(request);
 
-        System.out.println("\nYour invoice: ");
-        System.out.println(invoice.print());
+        // POLYMORPHISM
+        List<Printable> documents = List.of(
+                invoice, new DiagnosisReport("some issue", 16, false, "required name"),
+                new StandardWarrantyPolicy());
 
+
+        System.out.println("\nYour documents:");
+        for (Printable doc : documents) {
+            System.out.println("--------------------------------");
+            System.out.println(doc.toPrint());
+        }
 
         System.out.print("\nChoose payment method : CARD, CASH: ");
         String paymentMethod = scanner.nextLine().trim().toUpperCase();

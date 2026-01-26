@@ -83,14 +83,8 @@ public class Invoice extends Document {
     }
 
     @Override
-    public String print() {
-        double laborCost = laborHours * hourlyRate;
-        return "documents.Invoice#" + getDocumentNumber() + " for request#" + getRequestId()
-                + "\n  laborCost=" + laborCost
-                + "\n  partsCost=" + partsCost
-                + "\n  TOTAL=" + total
-                + "\n  createdBy=" + getCreatedByEmployeeId()
-                + "\n  createdAt=" + getCreatedAt();
+    public String toPrint() {
+        return toString();
     }
 
     @Override

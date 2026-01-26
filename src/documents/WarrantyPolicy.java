@@ -1,6 +1,6 @@
 package documents;
 
-public abstract class WarrantyPolicy {
+public abstract class WarrantyPolicy implements Printable {
 
     private String policyName;
     private int warrantyDays;

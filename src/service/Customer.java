@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Objects;
+
 public class Customer {
 
     private String fullName;
@@ -32,5 +34,18 @@ public class Customer {
                 "fullName='" + fullName + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(fullName, customer.fullName) && Objects.equals(phone, customer.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, phone);
     }
 }

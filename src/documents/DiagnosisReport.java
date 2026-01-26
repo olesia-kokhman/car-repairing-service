@@ -16,6 +16,11 @@ public class DiagnosisReport extends Document {
         this.requiredPartName = requiredPartName;
     }
 
+    @Override
+    public String toPrint() {
+        return toString();
+    }
+
     public DiagnosisReport(int reportNumber,
                            int requestId,
                            String createdByEmployeeId,
