@@ -22,8 +22,4 @@ public class StandardWarrantyPolicy extends WarrantyPolicy {
                 '}';
     }
 
-    @Override
-    public String toPrint() {
-        return null;
-    }
 }

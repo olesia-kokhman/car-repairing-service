@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Objects;
+
 public class ServiceAdvisor extends Employee implements Notifiable {
 
     private int deskNumber;
@@ -56,6 +58,18 @@ public class ServiceAdvisor extends Employee implements Notifiable {
     public void close(ServiceRequest request) {
         request.setStatus(ServiceRequestStatus.CLOSED);
         System.out.println("Advisor " + getName() + " closed request#" + request.getId());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ServiceAdvisor that)) return false;
+        return deskNumber == that.deskNumber && Objects.equals(languages, that.languages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deskNumber, languages);
     }
 
     @Override

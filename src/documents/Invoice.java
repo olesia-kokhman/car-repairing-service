@@ -76,8 +76,15 @@ public class Invoice extends Document {
     }
 
     @Override
-    public String toPrint() {
-        return toString();
+    protected String body() {
+        double laborCost = laborHours * hourlyRate;
+
+        return "Labor hours: " + laborHours +
+                "\nHourly rate: " + hourlyRate +
+                "\nLabor cost: " + laborCost +
+                "\nParts cost: " + partsCost +
+                "\n--------------------------------" +
+                "\nTOTAL: " + total;
     }
 
     @Override

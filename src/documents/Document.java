@@ -29,9 +29,20 @@ public abstract class Document implements Printable {
         return createdAt;
     }
 
+    protected abstract String body();
+
     @Override
-    public String toPrint() {
-        return toString();
+    public final String toPrint() {
+        return header() + "\n" + body();
+    }
+
+    protected String header() {
+        return getClass().getSimpleName().toUpperCase()
+                + " #" + documentNumber
+                + "\nRequest: #" + requestId
+                + "\nCreated by: " + (createdByEmployeeId == null ? "UNKNOWN" : createdByEmployeeId)
+                + "\nCreated at: " + createdAt
+                + "\n--------------------------------";
     }
 
     @Override

@@ -5,14 +5,14 @@ import documents.Invoice;
 import vehicle.parts.BrakePads;
 import vehicle.parts.VehiclePart;
 
-import java.util.List;
+import java.util.Set;
 
 public class CarRepairService {
 
-    private final List<ServiceAdvisor> advisors;
-    private final List<Mechanic> mechanics;
+    private final Set<ServiceAdvisor> advisors;
+    private final Set<Mechanic> mechanics;
 
-    public CarRepairService(List<ServiceAdvisor> advisors, List<Mechanic> mechanics) {
+    public CarRepairService(Set<ServiceAdvisor> advisors, Set<Mechanic> mechanics) {
         this.advisors = advisors;
         this.mechanics = mechanics;
     }
@@ -63,14 +63,14 @@ public class CarRepairService {
         if (advisors == null || advisors.isEmpty()) {
             throw new IllegalStateException("No service advisors available");
         }
-        return advisors.get(0);
+        return advisors.iterator().next();
     }
 
     private Mechanic chooseMechanic() {
         if (mechanics == null || mechanics.isEmpty()) {
             throw new IllegalStateException("No mechanics available");
         }
-        return mechanics.get(0);
+        return mechanics.iterator().next();
     }
 
     private VehiclePart createPart(String partName) {

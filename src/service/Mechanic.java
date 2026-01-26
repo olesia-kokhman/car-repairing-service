@@ -2,6 +2,8 @@ package service;
 
 import documents.DiagnosisReport;
 
+import java.util.Objects;
+
 public class Mechanic extends Employee {
 
     private String specialization;
@@ -54,6 +56,18 @@ public class Mechanic extends Employee {
 
     public String getCertificationLevel() { return certificationLevel; }
     public void setCertificationLevel(String certificationLevel) { this.certificationLevel = certificationLevel; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Mechanic mechanic)) return false;
+        return Objects.equals(specialization, mechanic.specialization) && Objects.equals(certificationLevel, mechanic.certificationLevel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(specialization, certificationLevel);
+    }
 
     public DiagnosisReport diagnose(ServiceRequest request) {
         String desc = request.getProblemDescription();
