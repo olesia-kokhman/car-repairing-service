@@ -1,9 +1,8 @@
 package vehicle;
 
-
 public class Car extends Vehicle {
 
-    private FuelType fuelType;
+    private final FuelType fuelType;
 
     public Car(String plateNumber,
                String model,
@@ -21,18 +20,6 @@ public class Car extends Vehicle {
 
     public FuelType getFuelType() {
         return fuelType;
-    }
-
-    public void setFuelType(FuelType fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public int getMileageKm() {
-        return getMileage();
-    }
-
-    public void setMileageKm(int mileageKm) {
-        setMileage(mileageKm);
     }
 
     @Override

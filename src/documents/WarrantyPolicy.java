@@ -2,8 +2,8 @@ package documents;
 
 public abstract class WarrantyPolicy implements Printable {
 
-    private String policyName;
-    private int warrantyDays;
+    private final String policyName;
+    private final int warrantyDays;
 
     protected WarrantyPolicy(String policyName, int warrantyDays) {
         this.policyName = policyName;

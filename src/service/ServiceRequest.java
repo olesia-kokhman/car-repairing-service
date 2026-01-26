@@ -5,12 +5,12 @@ import vehicle.Car;
 import vehicle.parts.VehiclePart;
 
 public class ServiceRequest {
-    private int id;
-    private Customer customer;
-    private Car car;
+    private final int id;
+    private final Customer customer;
+    private final Car car;
+
     private String problemDescription;
     private ServiceRequestStatus status;
-
     private DiagnosisReport diagnosis;
     private VehiclePart usedPart;
 
@@ -25,26 +25,13 @@ public class ServiceRequest {
     public int getId() {
         return id;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public Car getCar() {
         return car;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
-    }
 
     public String getProblemDescription() {
         return problemDescription;

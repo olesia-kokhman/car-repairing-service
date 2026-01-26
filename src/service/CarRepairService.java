@@ -5,16 +5,22 @@ import documents.Invoice;
 import vehicle.parts.BrakePads;
 import vehicle.parts.VehiclePart;
 
-public class CarRepairService {
-    private ServiceAdvisor advisor;
-    private Mechanic mechanic;
+import java.util.List;
 
-    public CarRepairService(ServiceAdvisor advisor, Mechanic mechanic) {
-        this.advisor = advisor;
-        this.mechanic = mechanic;
+public class CarRepairService {
+
+    private final List<ServiceAdvisor> advisors;
+    private final List<Mechanic> mechanics;
+
+    public CarRepairService(List<ServiceAdvisor> advisors, List<Mechanic> mechanics) {
+        this.advisors = advisors;
+        this.mechanics = mechanics;
     }
 
     public Invoice process(ServiceRequest request) {
+        ServiceAdvisor advisor = chooseAdvisor();
+        Mechanic mechanic = chooseMechanic();
+
         advisor.accept(request);
 
         DiagnosisReport report = mechanic.diagnose(request);
@@ -53,19 +59,32 @@ public class CarRepairService {
         );
     }
 
+    private ServiceAdvisor chooseAdvisor() {
+        if (advisors == null || advisors.isEmpty()) {
+            throw new IllegalStateException("No service advisors available");
+        }
+        return advisors.get(0);
+    }
+
+    private Mechanic chooseMechanic() {
+        if (mechanics == null || mechanics.isEmpty()) {
+            throw new IllegalStateException("No mechanics available");
+        }
+        return mechanics.get(0);
+    }
+
     private VehiclePart createPart(String partName) {
         if (partName == null || partName.isBlank()) {
             return null;
         }
-
         return new BrakePads(1200.0);
     }
 
     @Override
     public String toString() {
         return "service.CarRepairService{" +
-                "advisor=" + advisor +
-                ", mechanic=" + mechanic +
+                "advisors=" + advisors +
+                ", mechanics=" + mechanics +
                 '}';
     }
 }

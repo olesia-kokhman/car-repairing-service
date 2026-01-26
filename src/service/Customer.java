@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Customer implements Validatable {
 
-    private String fullName;
-    private String phone;
+    private final String fullName;
+    private final String phone;
 
     public Customer(String fullName, String phone) {
         this.fullName = fullName;
@@ -15,17 +15,8 @@ public class Customer implements Validatable {
     public String getFullName() {
         return fullName;
     }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public String getPhone() {
         return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     @Override

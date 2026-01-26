@@ -5,7 +5,7 @@ import vehicle.Priceable;
 import java.util.Objects;
 
 public abstract class VehiclePart implements Priceable {
-    private String partName;
+    private final String partName;
     private double price;
 
     public static final int DEFAULT_WARRANTY_MONTHS = 6;
@@ -16,7 +16,6 @@ public abstract class VehiclePart implements Priceable {
     }
 
     public String getPartName() { return partName; }
-    public void setPartName(String partName) { this.partName = partName; }
 
     public void setPrice(double price) { this.price = price; }
 

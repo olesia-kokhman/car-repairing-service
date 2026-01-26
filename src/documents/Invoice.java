@@ -38,18 +38,11 @@ public class Invoice extends Document {
     public int getInvoiceNumber() {
         return getDocumentNumber();
     }
-
-    public void setInvoiceNumber(int invoiceNumber) {
-        setDocumentNumber(invoiceNumber);
-    }
-
     public int getRequestId() {
         return super.getRequestId();
     }
 
-    public void setRequestId(int requestId) {
-        super.setRequestId(requestId);
-    }
+
 
     public double getLaborHours() {
         return laborHours;

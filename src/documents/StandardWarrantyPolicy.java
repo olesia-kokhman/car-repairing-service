@@ -2,7 +2,7 @@ package documents;
 
 public class StandardWarrantyPolicy extends WarrantyPolicy {
 
-    private boolean coversParts;
+    private final boolean coversParts;
 
     public StandardWarrantyPolicy() {
         super("Standard Warranty", 30);

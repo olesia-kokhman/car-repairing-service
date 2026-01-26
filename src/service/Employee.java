@@ -1,17 +1,17 @@
 package service;
 
 public abstract class Employee {
-    private String employeeId;
-    private String name;
+    private final String employeeId;
+    private final String name;
+    private final int hireYear;
 
     private String phone;
     private String email;
 
-    private int hireYear;
     private boolean active;
 
     private double baseRate;
-    private RateType rateType; // <-- enum
+    private RateType rateType;
 
     protected Employee(String employeeId,
                        String name,
@@ -32,13 +32,8 @@ public abstract class Employee {
     }
 
     public String getEmployeeId() { return employeeId; }
-    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
-
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
     public int getHireYear() { return hireYear; }
-    public void setHireYear(int hireYear) { this.hireYear = hireYear; }
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }

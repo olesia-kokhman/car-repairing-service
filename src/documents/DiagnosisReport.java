@@ -70,17 +70,6 @@ public class DiagnosisReport extends Document {
     }
 
     @Override
-    public String print() {
-        return "documents.DiagnosisReport#" + getDocumentNumber() + " for request#" + getRequestId()
-                + "\n  issueFound=" + issueFound
-                + "\n  laborHours=" + laborHours
-                + "\n  needsPart=" + needsPart
-                + (needsPart ? "\n  requiredPartName=" + requiredPartName : "")
-                + "\n  createdBy=" + getCreatedByEmployeeId()
-                + "\n  createdAt=" + getCreatedAt();
-    }
-
-    @Override
     public String toString() {
         return "documents.DiagnosisReport{" +
                 "reportNumber=" + getDocumentNumber() +

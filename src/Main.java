@@ -55,7 +55,12 @@ public class Main {
         ServiceAdvisor advisor = new ServiceAdvisor("Olena");
         Mechanic mechanic = new Mechanic("Mykola", 450.0);
 
-        CarRepairService service = new CarRepairService(advisor, mechanic);
+        CarRepairService service = new CarRepairService(
+                List.of(advisor),
+                List.of(mechanic)
+        );
+
+
         Invoice invoice = service.process(request);
 
         System.out.println("\nYour request after processing: ");
