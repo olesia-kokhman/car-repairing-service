@@ -2,7 +2,7 @@ package service;
 
 import java.util.Objects;
 
-public class Customer {
+public class Customer implements Validatable {
 
     private String fullName;
     private String phone;
@@ -26,6 +26,16 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public void validate() {
+        if (fullName == null || fullName.isBlank()) {
+            throw new IllegalArgumentException("Customer full name is empty");
+        }
+        if (phone == null || phone.isBlank()) {
+            throw new IllegalArgumentException("Customer phone is empty");
+        }
     }
 
     @Override

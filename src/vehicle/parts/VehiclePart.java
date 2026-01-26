@@ -1,8 +1,10 @@
 package vehicle.parts;
 
+import vehicle.Priceable;
+
 import java.util.Objects;
 
-public abstract class VehiclePart {
+public abstract class VehiclePart implements Priceable {
     private String partName;
     private double price;
 
@@ -16,10 +18,14 @@ public abstract class VehiclePart {
     public String getPartName() { return partName; }
     public void setPartName(String partName) { this.partName = partName; }
 
-    public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
 
     public abstract String category();
+
+    @Override
+    public double getPrice() {
+        return this.price;
+    }
 
     @Override
     public String toString() {

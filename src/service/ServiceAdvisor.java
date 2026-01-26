@@ -1,6 +1,6 @@
 package service;
 
-public class ServiceAdvisor extends Employee {
+public class ServiceAdvisor extends Employee implements Notifiable {
 
     private int deskNumber;
     private String languages;
@@ -48,6 +48,7 @@ public class ServiceAdvisor extends Employee {
         System.out.println("Advisor " + getName() + " accepted request#" + request.getId());
     }
 
+    @Override
     public void notifyCustomer(Customer customer, String message) {
         System.out.println("Notify " + customer.getFullName() + ": " + message);
     }
