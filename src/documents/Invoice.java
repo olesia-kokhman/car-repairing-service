@@ -42,8 +42,6 @@ public class Invoice extends Document {
         return super.getRequestId();
     }
 
-
-
     public double getLaborHours() {
         return laborHours;
     }

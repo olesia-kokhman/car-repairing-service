@@ -17,8 +17,15 @@ public class DiagnosisReport extends Document {
     }
 
     @Override
-    public String toPrint() {
-        return toString();
+    protected String body() {
+        String partInfo = needsPart
+                ? "Yes\nRequired part: " + (requiredPartName == null || requiredPartName.isBlank() ? "N/A" : requiredPartName)
+                : "No";
+
+        return "Issue found: " + (issueFound == null || issueFound.isBlank() ? "N/A" : issueFound) +
+                "\nLabor hours: " + laborHours +
+                "\nNeeds part: " + partInfo +
+                "\n--------------------------------";
     }
 
     public DiagnosisReport(int reportNumber,
