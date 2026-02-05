@@ -1,5 +1,7 @@
 package service;
 
+import exceptions.ValidationException;
+
 import java.util.Objects;
 
 public class Customer implements Validatable {
@@ -22,12 +24,13 @@ public class Customer implements Validatable {
     @Override
     public void validate() {
         if (fullName == null || fullName.isBlank()) {
-            throw new IllegalArgumentException("Customer full name is empty");
+            throw new ValidationException("Customer full name is empty");
         }
         if (phone == null || phone.isBlank()) {
-            throw new IllegalArgumentException("Customer phone is empty");
+            throw new ValidationException("Customer phone is empty");
         }
     }
+
 
     @Override
     public String toString() {

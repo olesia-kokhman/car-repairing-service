@@ -1,6 +1,7 @@
 package service;
 
 import documents.DiagnosisReport;
+import exceptions.InvalidServiceRequestStateException;
 import vehicle.Car;
 import vehicle.parts.VehiclePart;
 
@@ -46,10 +47,15 @@ public class ServiceRequest {
     }
 
     public void setStatus(ServiceRequestStatus status) {
-        if (status != null) {
-            this.status = status;
+        if (status == null) return;
+
+        if (this.status == ServiceRequestStatus.CLOSED) {
+            throw new InvalidServiceRequestStateException(this.status, status);
         }
+
+        this.status = status;
     }
+
 
     public DiagnosisReport getDiagnosis() {
         return diagnosis;

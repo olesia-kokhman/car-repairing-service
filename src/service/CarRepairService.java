@@ -2,6 +2,9 @@ package service;
 
 import documents.DiagnosisReport;
 import documents.Invoice;
+import exceptions.MissingDiagnosisException;
+import exceptions.NoStaffAvailableException;
+import exceptions.PartNotAvailableException;
 import vehicle.parts.BrakePads;
 import vehicle.parts.VehiclePart;
 
@@ -24,6 +27,11 @@ public class CarRepairService {
         advisor.accept(request);
 
         DiagnosisReport report = mechanic.diagnose(request);
+
+        if (report == null) {
+            throw new MissingDiagnosisException(request.getId());
+        }
+
         request.setDiagnosis(report);
 
         advisor.notifyCustomer(
@@ -35,16 +43,20 @@ public class CarRepairService {
 
         if (report.isNeedsPart()) {
             VehiclePart part = createPart(report.getRequiredPartName());
-            request.setUsedPart(part);
 
-            if (part != null) {
-                partsCost = part.getPrice();
-                advisor.notifyCustomer(
-                        request.getCustomer(),
-                        "Part will be used: " + part.getPartName()
-                );
+            if (part == null) {
+                throw new PartNotAvailableException(report.getRequiredPartName());
             }
+
+            request.setUsedPart(part);
+            partsCost = part.getPrice();
+
+            advisor.notifyCustomer(
+                    request.getCustomer(),
+                    "Part will be used: " + part.getPartName()
+            );
         }
+
 
         request.setStatus(ServiceRequestStatus.READY);
 
@@ -61,17 +73,18 @@ public class CarRepairService {
 
     private ServiceAdvisor chooseAdvisor() {
         if (advisors == null || advisors.isEmpty()) {
-            throw new IllegalStateException("No service advisors available");
+            throw new NoStaffAvailableException("ServiceAdvisor");
         }
         return advisors.iterator().next();
     }
 
     private Mechanic chooseMechanic() {
         if (mechanics == null || mechanics.isEmpty()) {
-            throw new IllegalStateException("No mechanics available");
+            throw new NoStaffAvailableException("Mechanic");
         }
         return mechanics.iterator().next();
     }
+
 
     private VehiclePart createPart(String partName) {
         if (partName == null || partName.isBlank()) {

@@ -1,13 +1,13 @@
 import documents.DiagnosisReport;
 import documents.Invoice;
 import documents.Printable;
-import documents.StandardWarrantyPolicy;
 import service.*;
 import vehicle.Car;
 import vehicle.FuelType;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -54,11 +54,7 @@ public class Main {
         ServiceAdvisor advisor = new ServiceAdvisor("Olena");
         Mechanic mechanic = new Mechanic("Mykola", 450.0);
 
-        CarRepairService service = new CarRepairService(
-                List.of(advisor),
-                List.of(mechanic)
-        );
-
+        CarRepairService service = new CarRepairService(Set.of(advisor), Set.of(mechanic));
 
         Invoice invoice = service.process(request);
 
@@ -67,8 +63,7 @@ public class Main {
 
         // POLYMORPHISM
         List<Printable> documents = List.of(
-                invoice, new DiagnosisReport("some issue", 16, false, "required name"),
-                new StandardWarrantyPolicy());
+                invoice, new DiagnosisReport("some issue", 16, false, "required name"));
 
 
         System.out.println("\nYour documents:");
